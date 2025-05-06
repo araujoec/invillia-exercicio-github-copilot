@@ -15,10 +15,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Populate activities list
       Object.entries(activities).forEach(([name, details]) => {
+        console.log(`Processing activity: ${name}`, details); // Log para verificar cada atividade
+
         const activityCard = document.createElement("div");
         activityCard.className = "activity-card";
 
         const spotsLeft = details.max_participants - details.participants.length;
+
+        const participantsHTML = details.participants
+          .map(participant => `<li>${participant}</li>`)
+          .join("");
+
+        console.log(`Generated participants HTML for ${name}:`, participantsHTML); // Log para verificar o HTML gerado
 
         activityCard.innerHTML = `
           <h4>${name}</h4>
@@ -27,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <p><strong>Availability:</strong> ${spotsLeft} spots left</p>
           <p><strong>Participants:</strong></p>
           <ul>
-            ${details.participants.map(participant => `<li>${participant}</li>`).join("")}
+            ${participantsHTML}
           </ul>
         `;
 
